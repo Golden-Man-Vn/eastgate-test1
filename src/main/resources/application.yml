@@ -58,3 +58,8 @@ management:
     health:
       probes:
         enabled: true
+upload:
+  executor:
+    core-pool-size: 50
+    max-pool-size: 100
+    queue-capacity: 1000

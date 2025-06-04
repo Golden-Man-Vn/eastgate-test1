@@ -1,6 +1,8 @@
 package com.project.demo.framework;
 
 import javax.sql.DataSource;
+
+import com.project.demo.config.UploadExecutorProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
@@ -27,12 +29,13 @@ public class MyBean {
     }
 
     @Bean
-    public Executor taskExecutor() {
+    public Executor taskExecutor(UploadExecutorProperties uploadExecutorProperties) {
         ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
-        executor.setCorePoolSize(50); // number of CPU?
-        executor.setMaxPoolSize(100);
-        executor.setQueueCapacity(1000);
+        executor.setCorePoolSize(uploadExecutorProperties.getCorePoolSize()); // number of CPU?
+        executor.setMaxPoolSize(uploadExecutorProperties.getMaxPoolSize());
+        executor.setQueueCapacity(uploadExecutorProperties.getQueueCapacity());
         executor.setThreadNamePrefix("worker-");
+
         executor.initialize();
         return executor;
     }

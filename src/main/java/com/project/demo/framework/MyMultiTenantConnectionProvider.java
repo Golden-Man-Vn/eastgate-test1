@@ -19,7 +19,7 @@ class MyMultiTenantConnectionProvider implements MultiTenantConnectionProvider, 
 
     @Override
     public Connection getAnyConnection() throws SQLException {
-        return getConnection("PUBLIC");
+        return getConnection("public");
     }
 
     @Override

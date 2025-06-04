@@ -6,7 +6,7 @@ import java.util.AbstractMap;
 import java.util.HashMap;
 import java.util.Map;
 
-    public class TenantContext {
+public class TenantContext {
     private static final ThreadLocal<String> currentContext = ThreadLocal.withInitial(() -> "public");
 
     public static void setTenant(String tenantId) {
