@@ -1,0 +1,60 @@
+logging:
+  level:
+    #org.flywaydb: DEBUG
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    ## Supabase provider
+    url: jdbc:postgresql://aws-0-ap-southeast-1.pooler.supabase.com:6543/postgres?preparedStatementCacheQueries=0&prepareThreshold=0
+    username: postgres.uialljhfsnwxffnilhcq
+    password: hytTgfr@$6f@DS
+    ### Neon provider
+    #url: jdbc:postgresql://ep-jolly-waterfall-a4nys379-pooler.us-east-1.aws.neon.tech/neondb?sslmode=require
+    #username: neondb_owner
+    #password: npg_r9BLuQZK5qhX
+    hikari:
+      maximum-pool-size: 10
+      pool-name: HikariCP
+      auto-commit: false
+      initialization-fail-timeout: 0
+      data-source-properties:
+        cachePrepStmts: false
+        useServerPrepStmts: false
+  jpa:
+#    database-platform: org.hibernate.dialect.ProgressDialect
+    generate-ddl: false
+    show-sql: true
+    hibernate:
+      ddl-auto: none
+    properties:
+      hibernate:
+        #format_sql: true
+        #dialect: org.hibernate.dialect.PostgreSQLDialect
+        #multiTenancy: SCHEMA
+        #tenant_identifier_resolver: com.project.demo.framework.CurrentTenantIdentifierResolverImpl
+        #multi_tenant_connection_provider: com.project.demo.framework.SchemaMultiTenantConnectionProvider
+    open-in-view: false
+  application:
+    name: demo-service
+  # Jackson
+  jackson:
+    default-property-inclusion: non_null
+    serialization:
+      write_dates_as_timestamps: false
+      fail-on-empty-beans: false
+    #time-zone: Asia/Ho_Chi_Minh
+    time-zone: UTC
+server:
+  error:
+    whitelabel:
+      enabled: false
+  shutdown: graceful
+  port: 8080
+management:
+  endpoint:
+    health:
+      probes:
+        enabled: true
