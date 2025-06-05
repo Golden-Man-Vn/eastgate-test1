@@ -5,7 +5,7 @@ FROM amazoncorretto:17
 WORKDIR /app
 
 # Copy file JAR vào container
-COPY demo.jar app.jar
+COPY demo-0.0.1-SNAPSHOT.jar app.jar
 
 # Mở cổng 8080 (hoặc port khác nếu app bạn cấu hình)
 EXPOSE 8080
