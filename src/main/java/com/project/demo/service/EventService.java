@@ -32,6 +32,7 @@ public class EventService {
         try (BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream))) {
             List<Event> list = new ArrayList<>();
             String line;
+            int total = 0;
             while ((line = bufferedReader.readLine()) != null) {
                 String[] fields = line.split(",");
 
@@ -50,7 +51,8 @@ public class EventService {
                 list.add(event);
 
                 if (list.size() == NUMBER_OF_BATCH) {
-                    log.debug("importCSV() - save context: file: " + fileName + ", context: " + TenantContext.getContext().toString());
+                    total += list.size();
+                    log.info("importCSV() - save context: file: " + fileName + ", context: " + TenantContext.getContext().toString() + ", total: " + total);
                     //eventRepository.saveAll(list);
                     saveBatch(list);
                     list.clear();
@@ -58,7 +60,8 @@ public class EventService {
             }
 
             if (!list.isEmpty()) {
-                log.debug("importCSV() - save context: file: " + fileName + ", context: " + TenantContext.getContext().toString());
+                total += list.size();
+                log.info("importCSV() - save context: file: " + fileName + ", context: " + TenantContext.getContext().toString() + ", total: " + total);
                 saveBatch(list);
                 eventRepository.saveAll(list);
             }
