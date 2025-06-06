@@ -1,5 +1,6 @@
 package com.project.demo.service;
 
+import com.project.demo.config.UploadExecutorProperties;
 import com.project.demo.entity.Event;
 import com.project.demo.framework.TenantContext;
 import com.project.demo.framework.TenantIdentifierResolver;
@@ -27,6 +28,9 @@ public class EventService {
     @Autowired
     private EventRepository eventRepository;
 
+    @Autowired
+    UploadExecutorProperties uploadExecutorProperties;
+
     //@Transactional
     public void importCSV(String fileName, InputStream inputStream) {
         try (BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream))) {
@@ -50,7 +54,7 @@ public class EventService {
                 var event = new Event(timestamp, value);
                 list.add(event);
 
-                if (list.size() == NUMBER_OF_BATCH) {
+                if (list.size() == uploadExecutorProperties.getBatchSize()) {
                     total += list.size();
                     log.info("importCSV() - save context: file: " + fileName + ", context: " + TenantContext.getContext().toString() + ", total: " + total);
                     //eventRepository.saveAll(list);

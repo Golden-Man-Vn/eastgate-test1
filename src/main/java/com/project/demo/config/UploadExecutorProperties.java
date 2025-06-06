@@ -13,5 +13,6 @@ public class UploadExecutorProperties {
     private int corePoolSize;
     private int maxPoolSize;
     private int queueCapacity;
+    private int batchSize;
 }
 
