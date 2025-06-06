@@ -20,7 +20,7 @@
 	- Có thể lấy và chạy trực tiếp docker online về test bằng các lệnh sau:
 		docker login
 		docker pull anphamvan/eastgate-test1:1.0
-		docker run --name eastgate-test1 -p 8080:8080 -e LOG_LEVEL=INFO -e UPLOAD_EXECUTOR_CORE-POOL-SIZE=50 -e UPLOAD_EXECUTOR_MAX-POOL-SIZE=100 -e UPLOAD_EXECUTOR_QUEUE-CAPACITY=1000 -e SPRING_DATASOURCE_URL="jdbc:postgresql://aws-0-ap-southeast-1.pooler.supabase.com:6543/postgres?preparedStatementCacheQueries=0&prepareThreshold=0" -e SPRING_DATASOURCE_USERNAME="postgres.uialljhfsnwxffnilhcq" -e SPRING_DATASOURCE_PASSWORD="hytTgfr@$6f@DS" anphamvan/eastgate-test1:1.0
+		docker run --name eastgate-test1 -p 8080:8080 -e LOG_LEVEL=INFO -e UPLOAD_EXECUTOR_CORE-POOL-SIZE=50 -e UPLOAD_EXECUTOR_MAX-POOL-SIZE=100 -e UPLOAD_EXECUTOR_QUEUE-CAPACITY=1000 -e UPLOAD_EXECUTOR_BATCH-SIZE=100 -e SPRING_DATASOURCE_URL="jdbc:postgresql://aws-0-ap-southeast-1.pooler.supabase.com:6543/postgres?preparedStatementCacheQueries=0&prepareThreshold=0" -e SPRING_DATASOURCE_USERNAME="postgres.uialljhfsnwxffnilhcq" -e SPRING_DATASOURCE_PASSWORD="hytTgfr@$6f@DS" anphamvan/eastgate-test1:1.0
 		
 	- Lưu ý các tham số cấu hình dòng lệnh có thể thay đổi để tối ưu hóa tài nguyên theo yêu cầu bài toán
 
