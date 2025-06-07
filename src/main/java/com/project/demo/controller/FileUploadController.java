@@ -37,9 +37,6 @@ public class FileUploadController {
                 executor.execute(() -> {
                     TenantContext.setTenant(tenantId);
 
-                    //eventService.importCSV(file);
-                    //TenantContext.clear();
-
                     try (InputStream in = new ByteArrayInputStream(fileBytes)) {
                         eventService.importCSV(fileName, in);
                     }
