@@ -4,6 +4,7 @@ import com.project.demo.framework.TenantContext;
 import com.project.demo.framework.TenantIdentifierResolver;
 import com.project.demo.service.EventService;
 import lombok.extern.log4j.Log4j2;
+import org.slf4j.MDC;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -30,11 +31,16 @@ public class FileUploadController {
             @PathVariable String tenantId,
             @RequestParam("files") MultipartFile[] files) {
 
+        String traceId = MDC.get("trace.id");
+        log.info("upload(): traceId: " + traceId);
+
         for (MultipartFile file : files) {
             try {
                 byte[] fileBytes = file.getBytes();
                 String fileName = file.getOriginalFilename();
+
                 executor.execute(() -> {
+                    MDC.put("trace.id", traceId);     // Khôi phục trace id
                     TenantContext.setTenant(tenantId);
 
                     //eventService.importCSV(file);

@@ -78,6 +78,12 @@
 			<artifactId>checker-qual</artifactId>
 			<version>3.42.0</version>
 		</dependency>
+
+		<dependency>
+			<groupId>co.elastic.apm</groupId>
+			<artifactId>apm-agent-api</artifactId>
+			<version>1.44.0</version> <!-- match version of your agent -->
+		</dependency>
 	</dependencies>
 
 	<build>
