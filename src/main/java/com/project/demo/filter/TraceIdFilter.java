@@ -13,23 +13,23 @@ import java.io.IOException;
 public class TraceIdFilter implements Filter {
     @Override
     public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain) throws IOException, ServletException {
-        var traceId = MDC.get("trace.id");
+        var traceId = MDC.get("traceId");
         log.info("doFilter(): traceId: " + traceId);
 
         traceId = ElasticApm.currentTransaction().getTraceId();
         log.info("doFilter(): ElasticApm traceId: " + traceId);
 
-        MDC.put("trace.id", traceId);
-        traceId = MDC.get("trace.id");
+        MDC.put("traceId", traceId);
+        traceId = MDC.get("traceId");
         log.info("doFilter(): MDC traceId: " + traceId);
 
         try {
             chain.doFilter(req, res);
-            traceId = MDC.get("trace.id");
+            traceId = MDC.get("traceId");
             log.info("doFilter(): MDC traceId 2: " + traceId);
 
         } finally {
-            MDC.remove("trace.id");
+            MDC.remove("traceId");
         }
     }
 }

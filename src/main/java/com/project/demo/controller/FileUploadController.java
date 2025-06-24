@@ -31,7 +31,7 @@ public class FileUploadController {
             @PathVariable String tenantId,
             @RequestParam("files") MultipartFile[] files) {
 
-        String traceId = MDC.get("trace.id");
+        String traceId = MDC.get("traceId");
         log.info("upload(): traceId: " + traceId);
 
         for (MultipartFile file : files) {
@@ -40,7 +40,7 @@ public class FileUploadController {
                 String fileName = file.getOriginalFilename();
 
                 executor.execute(() -> {
-                    MDC.put("trace.id", traceId);     // Khôi phục trace id
+                    MDC.put("traceId", traceId);     // Khôi phục trace id
                     TenantContext.setTenant(tenantId);
 
                     //eventService.importCSV(file);

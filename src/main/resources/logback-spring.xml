@@ -1,0 +1,18 @@
+<configuration scan="true">
+
+    <!-- Cấu hình appender console -->
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} %X{trace.id} trace=%X{traceId} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- Logging level mặc định -->
+    <root level="INFO">
+        <appender-ref ref="CONSOLE" />
+    </root>
+
+    <!-- (Tùy chọn) Logging level cho gói của bạn -->
+    <logger name="com.project" level="DEBUG" />
+
+</configuration>
