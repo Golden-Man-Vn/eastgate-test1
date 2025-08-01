@@ -1,0 +1,29 @@
+* Cách thực hiện:
+	- Sử dụng kỹ thuật multi-tenant của Hibernate + 02 schema để lưu trữ tách biệt riêng của Postgres
+	- Hiện tại các tham số ảnh hưởng hiệu năng trên cơ sở yêu cầu có thể cấu hình (biến môi trường UPLOAD_EXECUTOR_* hoặc trong file trong mã nguồn application.yml)
+	  phù hợp với tài nguyên triển khai như CPU, RAM, IO để chạy số lượng thread & hàng đợi trong Executor
+
+* Mã nguồn:
+	https://github.com/Golden-Man-Vn/eastgate-test1.git
+	
+* DB:
+	- Hiện tại mã nguồn hay docker kết nối trực tiếp đến DB online do Supabase cung cấp
+	  Trong trường hợp muốn test trên DB Posgres khác thì có thể tạo bằng script db/V1_DB_init.sql có trong mã nguồn và thay đổi chuỗi kết nối hoặc biến môi trường liên quan SPRING_DATASOURCE*	  
+	- 02 schema theo yêu cầu bài toán đang được đặt là: public, test
+	- Thông tin kết nối DB online:
+		## Supabase provider
+		url: jdbc:postgresql://aws-0-ap-southeast-1.pooler.supabase.com:6543/postgres?preparedStatementCacheQueries=0&prepareThreshold=0
+		username: postgres.uialljhfsnwxffnilhcq
+		password: hytTgfr@$6f@DS
+
+* Chạy ứng dụng:
+	- Có thể lấy và chạy trực tiếp docker online về test bằng các lệnh sau:
+		docker login
+		docker pull anphamvan/eastgate-test1:1.0
+		docker run --name eastgate-test1 -p 8080:8080 -e LOG_LEVEL=INFO -e UPLOAD_EXECUTOR_CORE-POOL-SIZE=50 -e UPLOAD_EXECUTOR_MAX-POOL-SIZE=100 -e UPLOAD_EXECUTOR_QUEUE-CAPACITY=1000 -e UPLOAD_EXECUTOR_BATCH-SIZE=100 -e SPRING_DATASOURCE_URL="jdbc:postgresql://aws-0-ap-southeast-1.pooler.supabase.com:6543/postgres?preparedStatementCacheQueries=0&prepareThreshold=0" -e SPRING_DATASOURCE_USERNAME="postgres.uialljhfsnwxffnilhcq" -e SPRING_DATASOURCE_PASSWORD="hytTgfr@$6f@DS" anphamvan/eastgate-test1:1.0
+		
+	- Lưu ý các tham số cấu hình dòng lệnh có thể thay đổi để tối ưu hóa tài nguyên theo yêu cầu bài toán
+
+* Test ứng dụng:
+	- API postman được cung cấp đặt tại: postman/eastgate-test1.json
+	- Dữ liệu test cũng được cung cấp đặt tại: test/*
